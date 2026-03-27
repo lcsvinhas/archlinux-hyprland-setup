@@ -7,24 +7,19 @@
 ## Table of Contents
 
 1. [Base System](#1-base-system)
-2. [Packages](#18-packages)
-2. [Pacman](#2-pacman)
-3. [Fonts](#3-fonts)
-4. [AUR (yay)](#4-aur-yay)
-5. [Firewall](#5-firewall)
-6. [Bluetooth](#6-bluetooth)
-7. [Audio](#7-audio)
-8. [Dark Mode / Qt Themes](#8-dark-mode--qt-themes)
-9. [SDDM Dark Theme](#9-sddm-dark-theme)
-10. [Hyprland](#10-hyprland)
-11. [Hyprpaper](#11-hyprpaper)
-12. [Hyprlock](#12-hyprlock)
-13. [Hypridle](#13-hypridle)
-14. [Kitty](#14-kitty)
-15. [Waybar](#15-waybar)
-16. [ZShell](#16-zshell)
-17. [Google Drive (rclone)](#17-google-drive-rclone)
-19. [Bambu Studio](#19-bambu-studio)
+2. [AUR (yay)](#2-aur-yay)
+3. [Packages](#3-packages)
+4. [Pacman](#4-pacman)
+5. [Hyprland](#5-hyprland)
+6. [Hyprpaper](#6-hyprpaper)
+7. [Hyprlock](#7-hyprlock)
+8. [Hypridle](#8-hypridle)
+9. [Kitty](#9-kitty)
+10. [Waybar](#10-waybar)
+11. [ZShell](#11-zshell)
+12. [Google Drive (rclone)](#12-google-drive-rclone)
+13. [Bambu Studio](#13-bambu-studio)
+14. [SDDM Dark Theme](#14-sddm-dark-theme)
 
 ---
 
@@ -41,7 +36,7 @@ reboot
 
 ---
 
-## 4. AUR (yay)
+## 2. AUR (yay)
 
 ### Install git and yay
 
@@ -57,7 +52,7 @@ cd ..
 rm -rf yay/
 ```
 
-## 2. Packages
+## 3. Packages
 
 ### Uninstall packages
 
@@ -131,6 +126,21 @@ sudo systemctl start firewalld
 # Bluetooth
 sudo systemctl enable bluetooth.service
 sudo systemctl start bluetooth.service
+mkdir -p ~/.config/autostart
+cp /etc/xdg/autostart/blueman.desktop ~/.config/autostart/
+nano ~/.config/autostart/blueman.desktop
+Hidden=true
+
+# Audio
+wpctl status
+# Set audio output (adjust ID according to wpctl status)
+wpctl set-default 58
+# Set microphone
+wpctl set-default 56
+
+# Kitten theme
+kitten themes
+# Select: Catppuccin-Mocha → m
 ```
 ```bash
 reboot
@@ -138,7 +148,7 @@ reboot
 
 ---
 
-## 2. Pacman
+## 4. Pacman
 
 ### Configuration
 
@@ -181,82 +191,7 @@ Include = /etc/pacman.d/mirrorlist
 
 ---
 
-## 7. Audio
-
-Check device IDs and set defaults:
-
-```bash
-wpctl status
-
-# Set audio output (adjust ID according to wpctl status)
-wpctl set-default 58
-
-# Set microphone
-wpctl set-default 56
-```
-
----
-
-## 9. SDDM Dark Theme
-
-### Theme download
-
-Download: https://www.opendesktop.org/p/1272122
-
-### Enable theme
-
-```bash
-sudo nano /etc/sddm.conf.d/sddm.conf
-```
-
-```ini
-[Theme]
-Current=sugar-dark
-```
-
-### Copy wallpaper
-
-```bash
-sudo mkdir -p /usr/share/sddm/themes/sugar-dark/Pictures/Wallpapers
-sudo cp ~/Pictures/Wallpapers/default.jpg /usr/share/sddm/themes/sugar-dark/Pictures/Wallpapers/
-```
-
-### Configure theme
-
-```bash
-sudo nano /usr/share/sddm/themes/sugar-dark/theme.conf
-```
-
-```ini
-[General]
-Background="Pictures/Wallpapers/default.jpg"
-ScaleImageCropped=true
-ScreenWidth=1440
-ScreenHeight=900
-
-MainColor="navajowhite"
-AccentColor="white"
-RoundCorners=20
-ScreenPadding=0
-
-Font="JetBrainsMono Nerd Font"
-FontSize=
-
-HourFormat="HH:mm"
-DateFormat="dddd, d of MMMM"
-
-ForceRightToLeft=false
-ForceLastUser=true
-ForcePasswordFocus=true
-ForceHideCompletePassword=false
-ForceHideVirtualKeyboardButton="false"
-
-HeaderText=Welcome!
-```
-
----
-
-## 10. Hyprland
+## 5. Hyprland
 
 ### Edit configuration
 
@@ -307,7 +242,6 @@ exec-once = flatpak run com.rtosta.zapzap
 exec-once = flatpak run com.github.IsmaelMartinez.teams_for_linux
 exec-once = rclone mount Drive: ~/Documents/Drive --vfs-cache-mode writes &
 exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec-once = killall blueman-applet 2>/dev/null
 
 #############################
 ### ENVIRONMENT VARIABLES ###
@@ -563,7 +497,7 @@ windowrule {
 
 ---
 
-## 11. Hyprpaper
+## 6. Hyprpaper
 
 ```bash
 nano ~/.config/hypr/hyprpaper.conf
@@ -586,7 +520,7 @@ ipc = off
 
 ---
 
-## 12. Hyprlock
+## 7. Hyprlock
 
 ```bash
 nano ~/.config/hypr/hyprlock.conf
@@ -630,7 +564,7 @@ input-field {
 
 ---
 
-## 13. Hypridle
+## 8. Hypridle
 
 ```bash
 nano ~/.config/hypr/hypridle.conf
@@ -662,7 +596,7 @@ listener {
 
 ---
 
-## 14. Kitty
+## 9. Kitty
 
 ```bash
 nano ~/.config/kitty/kitty.conf
@@ -680,16 +614,9 @@ background_opacity 0.75
 background #24273a
 ```
 
-### Catppuccin Mocha theme
-
-```bash
-kitten themes
-# Select: Catppuccin-Mocha → m
-```
-
 ---
 
-## 15. Waybar
+## 10. Waybar
 
 ### Installation
 
@@ -748,7 +675,7 @@ cd ~/.config/waybar
     }
   },
   "custom/bluetooth": {
-    "exec": "bash -c 'rfkill list bluetooth | grep -q \"Soft blocked: no\" && echo \" ON]\" || echo \"󰂲 OFF]\"'",
+    "exec": "bash -c 'rfkill list bluetooth | grep -q \"Soft blocked: no\" && echo \"󰂯 ON]\" || echo \"󰂲 OFF]\"'",
     "interval": 2,
     "on-click": "blueman-manager",
     "on-click-right": "rfkill toggle bluetooth"
@@ -757,7 +684,7 @@ cd ~/.config/waybar
     "format": "[{icon} {volume}%",
     "format-muted": "[󰖁 MUTE",
     "format-icons": {
-      "default": ["", "", ""]
+        "default": ["", "", " "]
     },
     "on-click": "pavucontrol",
     "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
@@ -765,7 +692,7 @@ cd ~/.config/waybar
     "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
   },
   "custom/power": {
-    "format": "",
+    "format": "⏻",
     "tooltip": "Power Menu",
     "on-click": "~/.config/waybar/power.sh"
   }
@@ -900,7 +827,7 @@ chmod +x ~/.config/waybar/power.sh
 
 ---
 
-## 16. ZShell
+## 11. ZShell
 
 ```bash
 chsh -s /usr/bin/zsh
@@ -930,7 +857,8 @@ source <(fzf --zsh)
 
 # Starship Prompt
 eval "$(starship init zsh)"
-
+```
+```bash
 exec zsh
 ```
 
@@ -942,7 +870,7 @@ starship preset nerd-font-symbols -o ~/.config/starship.toml
 
 ---
 
-## 17. Google Drive (rclone)
+## 12. Google Drive (rclone)
 
 ### Install and configure
 
@@ -980,7 +908,7 @@ rclone mount Drive: ~/Documents/Drive --vfs-cache-mode writes &
 
 ---
 
-## 19. Bambu Studio
+## 13. Bambu Studio
 
 ### Install AppImage
 
@@ -1004,4 +932,62 @@ Icon=bambu-studio
 Type=Application
 Categories=Utility;
 Terminal=false
+```
+---
+
+## 14. SDDM Dark Theme
+
+### Theme download
+
+Download: https://www.opendesktop.org/p/1272122
+
+### Enable theme
+
+```bash
+sudo nano /etc/sddm.conf.d/sddm.conf
+```
+
+```ini
+[Theme]
+Current=sugar-dark
+```
+
+### Copy wallpaper
+
+```bash
+sudo mkdir -p /usr/share/sddm/themes/sugar-dark/Pictures/Wallpapers
+sudo cp ~/Pictures/Wallpapers/default.jpg /usr/share/sddm/themes/sugar-dark/Pictures/Wallpapers/
+```
+
+### Configure theme
+
+```bash
+sudo nano /usr/share/sddm/themes/sugar-dark/theme.conf
+```
+
+```ini
+[General]
+Background="Pictures/Wallpapers/default.jpg"
+ScaleImageCropped=true
+ScreenWidth=1440
+ScreenHeight=900
+
+MainColor="navajowhite"
+AccentColor="white"
+RoundCorners=20
+ScreenPadding=0
+
+Font="JetBrainsMono Nerd Font"
+FontSize=
+
+HourFormat="HH:mm"
+DateFormat="dddd, d of MMMM"
+
+ForceRightToLeft=false
+ForceLastUser=true
+ForcePasswordFocus=true
+ForceHideCompletePassword=false
+ForceHideVirtualKeyboardButton="false"
+
+HeaderText=Welcome!
 ```
