@@ -7,6 +7,7 @@
 ## Table of Contents
 
 1. [Base System](#1-base-system)
+2. [Packages](#18-packages)
 2. [Pacman](#2-pacman)
 3. [Fonts](#3-fonts)
 4. [AUR (yay)](#4-aur-yay)
@@ -23,7 +24,6 @@
 15. [Waybar](#15-waybar)
 16. [ZShell](#16-zshell)
 17. [Google Drive (rclone)](#17-google-drive-rclone)
-18. [Applications](#18-applications)
 19. [Bambu Studio](#19-bambu-studio)
 
 ---
@@ -35,18 +35,105 @@
 ```bash
 sudo pacman -Syyuu
 ```
-
-### Default user folders
-
 ```bash
-sudo pacman -S xdg-user-dirs
-xdg-user-dirs-update
+reboot
 ```
 
-### Compression tools
+---
+
+## 4. AUR (yay)
+
+### Install git and yay
 
 ```bash
-sudo pacman -S file-roller nemo-fileroller zip unzip
+sudo pacman -S git base-devel
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+git clone https://aur.archlinux.org/yay.git
+cd yay/
+makepkg -si
+cd ..
+rm -rf yay/
+```
+
+## 2. Packages
+
+### Uninstall packages
+
+```bash
+sudo pacman -Rns dolphin vim
+```
+
+### Pacman
+
+```bash
+sudo pacman -S nemo wofi eog mpv libreoffice-fresh libreoffice-fresh-pt-br fastfetch timeshift jdk17-openjdk dotnet-sdk nodejs npm docker docker-compose dbeaver postgresql xdg-user-dirs file-roller nemo-fileroller zip unzip flatpak discord blender gimp handbrake noto-fonts ttf-jetbrains-mono-nerd firewalld firewall-config blueman adw-gtk-theme xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt6ct qt5ct kvantum breeze-icons qt5-graphicaleffects qt5-quickcontrols qt5-quickcontrols2 hyprshot hyprpaper hyprlock hypridle waybar pavucontrol zsh starship zsh-autosuggestions zsh-syntax-highlighting fzf rclone webkit2gtk-4.1 fuse2
+```
+```bash
+reboot
+```
+
+### Yay
+
+```bash
+yay -S google-chrome
+yay -S visual-studio-code-bin
+yay -S postman-bin
+yay -S zoom
+yay -S jetbrains-toolbox
+```
+```bash
+reboot
+```
+
+### Flatpak
+
+```bash
+flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
+flatpak install flathub com.rtosta.zapzap
+```
+```bash
+reboot
+```
+
+### Configurations
+
+```bash
+# Default user folders
+xdg-user-dirs-update
+
+# Open in terminal
+gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
+
+# Timeshift
+sudo timeshift-gtk
+
+# Docker
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+
+# PostgreSQL
+sudo -iu postgres initdb --locale=C.UTF-8 -D /var/lib/postgres/data
+sudo systemctl enable --now postgresql
+sudo -iu postgres psql
+ALTER USER postgres WITH PASSWORD '123456';
+
+# Kitten font
+kitten choose-font
+# Select: JetBrainsMono Nerd Font → Enter → Enter
+
+# Firewall
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+
+# Bluetooth
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+```
+```bash
+reboot
 ```
 
 ---
@@ -57,20 +144,6 @@ sudo pacman -S file-roller nemo-fileroller zip unzip
 
 ```bash
 sudo nano /etc/pacman.conf
-```
-
-Key changes to apply in the file:
-
-```ini
-[options]
-Color
-CheckSpace
-ParallelDownloads = 10
-DownloadUser = alpm
-ILoveCandy
-
-[multilib]
-Include = /etc/pacman.d/mirrorlist
 ```
 
 <details>
@@ -108,60 +181,6 @@ Include = /etc/pacman.d/mirrorlist
 
 ---
 
-## 3. Fonts
-
-```bash
-sudo pacman -S noto-fonts
-sudo pacman -S ttf-jetbrains-mono-nerd
-```
-
-### Set font in Kitty
-
-```bash
-kitten choose-font
-# Select: JetBrainsMono Nerd Font → Enter → Enter
-```
-
----
-
-## 4. AUR (yay)
-
-### Install git and yay
-
-```bash
-sudo pacman -S git base-devel
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-
-git clone https://aur.archlinux.org/yay.git
-cd yay/
-makepkg -si
-cd ..
-rm -rf yay/
-```
-
----
-
-## 5. Firewall
-
-```bash
-sudo pacman -S firewalld firewall-config
-sudo systemctl enable firewalld
-sudo systemctl start firewalld
-```
-
----
-
-## 6. Bluetooth
-
-```bash
-sudo pacman -S blueman
-sudo systemctl enable bluetooth.service
-sudo systemctl start bluetooth.service
-```
-
----
-
 ## 7. Audio
 
 Check device IDs and set defaults:
@@ -178,26 +197,11 @@ wpctl set-default 56
 
 ---
 
-## 8. Dark Mode / Qt Themes
-
-```bash
-sudo pacman -S adw-gtk-theme xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
-sudo pacman -S qt6ct qt5ct kvantum breeze-icons
-```
-
----
-
 ## 9. SDDM Dark Theme
 
 ### Theme download
 
 Download: https://www.opendesktop.org/p/1272122
-
-### Dependencies
-
-```bash
-sudo pacman -S qt5-graphicaleffects qt5-quickcontrols qt5-quickcontrols2
-```
 
 ### Enable theme
 
@@ -286,9 +290,6 @@ workspace = 2, monitor:HDMI-A-1
 ### MY PROGRAMS ###
 ###################
 
-# See https://wiki.hypr.land/Configuring/Keywords/
-
-# Set programs that you use
 $terminal = kitty
 $fileManager = nemo
 $menu = wofi --show drun
@@ -312,60 +313,33 @@ exec-once = killall blueman-applet 2>/dev/null
 ### ENVIRONMENT VARIABLES ###
 #############################
 
-# See https://wiki.hypr.land/Configuring/Environment-variables/
-
 env = XCURSOR_SIZE,24
 env = HYPRCURSOR_SIZE,24
-
-###################
-### PERMISSIONS ###
-###################
-
-# See https://wiki.hypr.land/Configuring/Permissions/
-# Please note permission changes here require a Hyprland restart and are not applied on-the-fly
-# for security reasons
-
-# ecosystem {
-#   enforce_permissions = 1
-# }
-
-# permission = /usr/(bin|local/bin)/grim, screencopy, allow
-# permission = /usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland, screencopy, allow
-# permission = /usr/(bin|local/bin)/hyprpm, plugin, allow
-
 
 #####################
 ### LOOK AND FEEL ###
 #####################
 
-# Refer to https://wiki.hypr.land/Configuring/Variables/
-
-# https://wiki.hypr.land/Configuring/Variables/#general
 general {
     gaps_in = 2
     gaps_out = 10
 
     border_size = 2
 
-    # https://wiki.hypr.land/Configuring/Variables/#variable-types for info about colors
     col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
     col.inactive_border = rgba(595959aa)
 
-    # Set to true enable resizing windows by clicking and dragging on borders and gaps
     resize_on_border = false
 
-    # Please see https://wiki.hypr.land/Configuring/Tearing/ before you turn this on
     allow_tearing = false
 
     layout = dwindle
 }
 
-# https://wiki.hypr.land/Configuring/Variables/#decoration
 decoration {
     rounding = 10
     rounding_power = 2
 
-    # Change transparency of focused and unfocused windows
     active_opacity = 1.0
     inactive_opacity = 1.0
 
@@ -376,7 +350,6 @@ decoration {
         color = rgba(1a1a1aee)
     }
 
-    # https://wiki.hypr.land/Configuring/Variables/#blur
     blur {
         enabled = true
         size = 3
@@ -386,20 +359,15 @@ decoration {
     }
 }
 
-# https://wiki.hypr.land/Configuring/Variables/#animations
 animations {
     enabled = yes, please :)
 
-    # Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
-    #        NAME,           X0,   Y0,   X1,   Y1
     bezier = easeOutQuint,   0.23, 1,    0.32, 1
     bezier = easeInOutCubic, 0.65, 0.05, 0.36, 1
     bezier = linear,         0,    0,    1,    1
     bezier = almostLinear,   0.5,  0.5,  0.75, 1
     bezier = quick,          0.15, 0,    0.1,  1
 
-    # Default animations, see https://wiki.hypr.land/Configuring/Animations/
-    #           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
     animation = global,        1,     10,    default
     animation = border,        1,     5.39,  easeOutQuint
     animation = windows,       1,     4.79,  easeOutQuint
@@ -419,29 +387,6 @@ animations {
     animation = zoomFactor,    1,     7,     quick
 }
 
-# Ref https://wiki.hypr.land/Configuring/Workspace-Rules/
-# "Smart gaps" / "No gaps when only"
-# uncomment all if you wish to use that.
-# workspace = w[tv1], gapsout:0, gapsin:0
-# workspace = f[1], gapsout:0, gapsin:0
-# windowrule {
-#     name = no-gaps-wtv1
-#     match:float = false
-#     match:workspace = w[tv1]
-#
-#     border_size = 0
-#     rounding = 0
-# }
-#
-# windowrule {
-#     name = no-gaps-f1
-#     match:float = false
-#     match:workspace = f[1]
-#
-#     border_size = 0
-#     rounding = 0
-# }
-
 windowrule {
     name = teams-workspace
     match:class = com.github.IsmaelMartinez.teams_for_linux
@@ -460,18 +405,15 @@ windowrule {
     monitor = HDMI-A-1
 }
 
-# See https://wiki.hypr.land/Configuring/Dwindle-Layout/ for more
 dwindle {
     pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
 }
 
-# See https://wiki.hypr.land/Configuring/Master-Layout/ for more
 master {
     new_status = master
 }
 
-# https://wiki.hypr.land/Configuring/Variables/#misc
 misc {
     force_default_wallpaper = -1 # Set to 0 or 1 to disable the anime mascot wallpapers
     disable_hyprland_logo = false # If true disables the random hyprland logo / anime girl background. :(
@@ -482,7 +424,6 @@ misc {
 ### INPUT ###
 #############
 
-# https://wiki.hypr.land/Configuring/Variables/#input
 input {
     kb_layout = br
     kb_variant = abnt2
@@ -499,11 +440,8 @@ input {
     }
 }
 
-# See https://wiki.hypr.land/Configuring/Gestures
 gesture = 3, horizontal, workspace
 
-# Example per-device config
-# See https://wiki.hypr.land/Configuring/Keywords/#per-device-input-configs for more
 device {
     name = epic-mouse-v1
     sensitivity = -0.5
@@ -514,10 +452,8 @@ device {
 ### KEYBINDINGS ###
 ###################
 
-# See https://wiki.hypr.land/Configuring/Keywords/
 $mainMod = SUPER # Sets "Windows" key as main modifier
 
-# Example binds, see https://wiki.hypr.land/Configuring/Binds/ for more
 bind = $mainMod, T, exec, $terminal
 bind = $mainMod, C, killactive,
 bind = $mainMod, Escape, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
@@ -594,13 +530,7 @@ bindl = , XF86AudioPrev, exec, playerctl previous
 ### WINDOWS AND WORKSPACES ###
 ##############################
 
-# See https://wiki.hypr.land/Configuring/Window-Rules/ for more
-# See https://wiki.hypr.land/Configuring/Workspace-Rules/ for workspace rules
-
-# Example windowrules that are useful
-
 windowrule {
-    # Ignore maximize requests from all apps. You'll probably like this.
     name = suppress-maximize-events
     match:class = .*
 
@@ -608,7 +538,6 @@ windowrule {
 }
 
 windowrule {
-    # Fix some dragging issues with XWayland
     name = fix-xwayland-drags
     match:class = ^$
     match:title = ^$
@@ -620,7 +549,6 @@ windowrule {
     no_focus = true
 }
 
-# Hyprland-run windowrule
 windowrule {
     name = move-hyprland-run
 
@@ -633,19 +561,9 @@ windowrule {
 
 </details>
 
-### Screenshots (Hyprshot)
-
-```bash
-sudo pacman -S hyprshot
-```
-
 ---
 
 ## 11. Hyprpaper
-
-```bash
-sudo pacman -S hyprpaper
-```
 
 ```bash
 nano ~/.config/hypr/hyprpaper.conf
@@ -669,10 +587,6 @@ ipc = off
 ---
 
 ## 12. Hyprlock
-
-```bash
-sudo pacman -S hyprlock
-```
 
 ```bash
 nano ~/.config/hypr/hyprlock.conf
@@ -717,10 +631,6 @@ input-field {
 ---
 
 ## 13. Hypridle
-
-```bash
-sudo pacman -S hypridle
-```
 
 ```bash
 nano ~/.config/hypr/hypridle.conf
@@ -784,7 +694,6 @@ kitten themes
 ### Installation
 
 ```bash
-sudo pacman -S waybar pavucontrol
 mkdir -p ~/.config/waybar
 cd ~/.config/waybar
 ```
@@ -994,11 +903,10 @@ chmod +x ~/.config/waybar/power.sh
 ## 16. ZShell
 
 ```bash
-sudo pacman -S zsh
 chsh -s /usr/bin/zsh
+```
+```bash
 reboot
-
-sudo pacman -S starship zsh-autosuggestions zsh-syntax-highlighting fzf
 ```
 
 ### Configure `~/.zshrc`
@@ -1039,7 +947,6 @@ starship preset nerd-font-symbols -o ~/.config/starship.toml
 ### Install and configure
 
 ```bash
-sudo pacman -S rclone
 rclone config
 ```
 
@@ -1073,94 +980,7 @@ rclone mount Drive: ~/Documents/Drive --vfs-cache-mode writes &
 
 ---
 
-## 18. Applications
-
-### General
-
-```bash
-# File manager
-sudo pacman -S nemo
-gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
-
-# Launcher
-sudo pacman -S wofi
-
-# Image viewer
-sudo pacman -S eog
-
-# Media player
-sudo pacman -S mpv
-
-# LibreOffice
-sudo pacman -S libreoffice-fresh libreoffice-fresh-pt-BR
-
-# Fastfetch
-sudo pacman -S fastfetch
-
-# Timeshift (backups)
-sudo pacman -S timeshift
-sudo timeshift-gtk
-```
-
-### Development
-
-```bash
-sudo pacman -S jdk17-openjdk
-sudo pacman -S dotnet-sdk
-sudo pacman -S nodejs npm
-
-# Docker
-sudo pacman -S docker docker-compose
-sudo systemctl enable docker
-sudo systemctl start docker
-sudo usermod -aG docker $USER
-
-# DBeaver
-sudo pacman -S dbeaver
-
-# PostgreSQL
-sudo pacman -S postgresql
-sudo -iu postgres initdb --locale=C.UTF-8 -D /var/lib/postgres/data
-sudo systemctl enable --now postgresql
-sudo -iu postgres psql
-ALTER USER postgres WITH PASSWORD '123456';
-```
-
-### Via yay
-
-```bash
-yay -S google-chrome
-yay -S visual-studio-code-bin
-yay -S postman-bin
-yay -S zoom
-yay -S jetbrains-toolbox
-```
-
-### Via Flatpak
-
-```bash
-sudo pacman -S flatpak
-flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
-flatpak install flathub com.rtosta.zapzap
-```
-
-### Multimedia
-
-```bash
-sudo pacman -S blender
-sudo pacman -S gimp
-sudo pacman -S handbrake
-```
-
----
-
 ## 19. Bambu Studio
-
-### Dependencies
-
-```bash
-sudo pacman -S webkit2gtk-4.1 fuse2
-```
 
 ### Install AppImage
 
