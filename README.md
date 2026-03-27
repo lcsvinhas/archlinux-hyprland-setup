@@ -63,7 +63,7 @@ sudo pacman -Rns dolphin vim
 ### Pacman
 
 ```bash
-sudo pacman -S nemo wofi eog mpv libreoffice-fresh libreoffice-fresh-pt-br fastfetch timeshift jdk17-openjdk dotnet-sdk nodejs npm docker docker-compose dbeaver postgresql xdg-user-dirs file-roller nemo-fileroller zip unzip flatpak discord blender gimp handbrake noto-fonts ttf-jetbrains-mono-nerd firewalld firewall-config blueman adw-gtk-theme xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt6ct qt5ct kvantum breeze-icons qt5-graphicaleffects qt5-quickcontrols qt5-quickcontrols2 hyprshot hyprpaper hyprlock hypridle waybar pavucontrol zsh starship zsh-autosuggestions zsh-syntax-highlighting fzf rclone webkit2gtk-4.1 fuse2
+sudo pacman -S nemo wofi eog mpv libreoffice-fresh libreoffice-fresh-pt-br fastfetch timeshift jdk17-openjdk dotnet-sdk nodejs npm docker docker-compose dbeaver postgresql xdg-user-dirs file-roller nemo-fileroller zip unzip flatpak discord blender gimp handbrake noto-fonts ttf-jetbrains-mono-nerd firewalld firewall-config blueman adw-gtk-theme xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt6ct qt5ct kvantum breeze-icons qt5-graphicaleffects qt5-quickcontrols qt5-quickcontrols2 hyprshot hyprpaper hyprlock hypridle waybar pavucontrol zsh starship zsh-autosuggestions zsh-syntax-highlighting fzf rclone webkit2gtk-4.1 fuse2 gnome-disk-utility
 ```
 ```bash
 reboot
