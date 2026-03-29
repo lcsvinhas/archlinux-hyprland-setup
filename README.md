@@ -15,7 +15,7 @@
 7. [Hyprlock](#7-hyprlock)
 8. [Hypridle](#8-hypridle)
 9. [Kitty](#9-kitty)
-10. [Waybar](#10-waybar)
+10. [Swaync](#10-swaync)
 11. [Waybar](#11-waybar)
 12. [ZShell](#12-zshell)
 13. [Google Drive (rclone)](#13-google-drive-rclone)
