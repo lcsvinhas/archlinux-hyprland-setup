@@ -63,7 +63,7 @@ sudo pacman -Rns dolphin vim
 ### Pacman
 
 ```bash
-sudo pacman -S nemo wofi eog mpv libreoffice-fresh libreoffice-fresh-pt-br fastfetch timeshift jdk17-openjdk dotnet-sdk nodejs npm docker docker-compose dbeaver postgresql xdg-user-dirs file-roller nemo-fileroller zip unzip flatpak discord blender gimp handbrake noto-fonts ttf-jetbrains-mono-nerd firewalld firewall-config blueman adw-gtk-theme xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt6ct qt5ct kvantum breeze-icons qt5-graphicaleffects qt5-quickcontrols qt5-quickcontrols2 hyprshot hyprpaper hyprlock hypridle waybar pavucontrol zsh starship zsh-autosuggestions zsh-syntax-highlighting fzf rclone webkit2gtk-4.1 fuse2 gnome-disk-utility
+sudo pacman -S nemo wofi eog mpv libreoffice-fresh libreoffice-fresh-pt-br fastfetch timeshift jdk17-openjdk dotnet-sdk nodejs npm docker docker-compose dbeaver postgresql xdg-user-dirs file-roller nemo-fileroller zip unzip flatpak discord blender gimp handbrake noto-fonts ttf-jetbrains-mono-nerd firewalld firewall-config blueman adw-gtk-theme xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt6ct qt5ct kvantum breeze-icons qt5-graphicaleffects qt5-quickcontrols qt5-quickcontrols2 hyprshot hyprpaper hyprlock hypridle waybar pavucontrol zsh starship zsh-autosuggestions zsh-syntax-highlighting fzf rclone webkit2gtk-4.1 fuse2 gnome-disk-utility swaync
 ```
 ```bash
 reboot
@@ -237,6 +237,7 @@ $browser = google-chrome-stable
 exec-once = waybar
 exec-once = hyprpaper
 exec-once = hypridle
+exec-once = swaync
 exec-once = discord
 exec-once = flatpak run com.rtosta.zapzap
 exec-once = flatpak run com.github.IsmaelMartinez.teams_for_linux
@@ -639,10 +640,21 @@ cd ~/.config/waybar
   "margin-left": 10,
   "margin-right": 10,
   "margin-bottom": 1,
-  "modules-left": ["custom/icon", "hyprland/window"],
-  "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["tray", "pulseaudio", "custom/bluetooth", "clock", "custom/power"],
-
+  "modules-left": [
+    "custom/icon",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "tray",
+    "pulseaudio",
+    "custom/bluetooth",
+    "clock",
+    "custom/notifications",
+    "custom/power"
+  ],
   "custom/icon": {
     "format": "󰣇"
   },
@@ -684,15 +696,26 @@ cd ~/.config/waybar
     "format": "[{icon} {volume}%",
     "format-muted": "[󰖁 MUTE",
     "format-icons": {
-        "default": ["", "", " "]
+      "default": [
+        "",
+        "",
+        " "
+      ]
     },
     "on-click": "pavucontrol",
     "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
     "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
   },
+  "custom/notifications": {
+    "format": "{}",
+    "exec": "bash -c 'swaync-client -D | grep -q true && echo \"󰂛\" || echo \"󰂚\"'",
+    "interval": 2,
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -d"
+  },
   "custom/power": {
-    "format": "⏻",
+    "format": "",
     "tooltip": "Power Menu",
     "on-click": "~/.config/waybar/power.sh"
   }
@@ -760,7 +783,7 @@ window#waybar {
 
 #custom-icon {
     font-size: 15px;
-    padding-right: 5px;
+    padding-right: 4px;
 }
 
 #window {
@@ -792,7 +815,7 @@ window#waybar {
 }
 
 #tray {
-    padding: 0 6px;
+    padding: 0 4px;
     color: @sapphire;
 }
 
@@ -823,8 +846,18 @@ window#waybar {
     color: @yellow;
 }
 
+#custom-notifications {
+    padding: 0 4px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+#custom-notifications:hover {
+    color: @yellow;
+}
+
 #custom-power {
-    padding: 0 6px;
+    padding: 0 4px;
     transition: all 0.3s ease;
     font-weight: bold;
 }
