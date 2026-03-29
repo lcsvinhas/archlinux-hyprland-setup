@@ -16,10 +16,11 @@
 8. [Hypridle](#8-hypridle)
 9. [Kitty](#9-kitty)
 10. [Waybar](#10-waybar)
-11. [ZShell](#11-zshell)
-12. [Google Drive (rclone)](#12-google-drive-rclone)
-13. [Bambu Studio](#13-bambu-studio)
-14. [SDDM Dark Theme](#14-sddm-dark-theme)
+11. [Waybar](#11-waybar)
+12. [ZShell](#12-zshell)
+13. [Google Drive (rclone)](#13-google-drive-rclone)
+14. [Bambu Studio](#14-bambu-studio)
+15. [SDDM Dark Theme](#15-sddm-dark-theme)
 
 ---
 
@@ -617,7 +618,63 @@ background #24273a
 
 ---
 
-## 10. Waybar
+## 10. Swaync
+
+```bash
+code .config/swaync/style.css
+```
+<details>
+<summary>View style.css (Catppuccin Mocha)</summary>
+
+```css
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink #f5c2e7;
+@define-color mauve #cba4f7;
+@define-color red #f38ba8;
+@define-color maroon #eba0ac;
+@define-color peach #fab387;
+@define-color yellow #f9e2af;
+@define-color green #a6e3a1;
+@define-color teal #94e2d5;
+@define-color sky #89dceb;
+@define-color sapphire #74c7ec;
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color text #cdd6f4;
+@define-color subtext1 #bac2de;
+@define-color subtext0 #a6adc8;
+@define-color overlay2 #9399b2;
+@define-color overlay1 #7f849c;
+@define-color overlay0 #6c7086;
+@define-color surface2 #585b70;
+@define-color surface1 #45475a;
+@define-color surface0 #313244;
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+
+* {
+    font-family: "JetBrains Mono Nerd", monospace;
+    border: none;
+    min-height: 0;
+}
+
+.control-center {
+    background-color: alpha(@base, 0.75);
+    border-radius: 12px;
+    color: @sapphire;
+    padding: 2px 12px;
+    margin: 10px;
+    transition: 0.3s all
+}
+```
+
+</details>
+
+---
+
+## 11. Waybar
 
 ### Installation
 
@@ -725,7 +782,7 @@ cd ~/.config/waybar
 ### Create `style.css`
 
 <details>
-<summary>View style.css (Catppuccin Macchiato)</summary>
+<summary>View style.css (Catppuccin Mocha)</summary>
 
 ```css
 @define-color rosewater #f5e0dc;
@@ -895,7 +952,7 @@ chmod +x ~/.config/waybar/power.sh
 
 ---
 
-## 11. ZShell
+## 12. ZShell
 
 ```bash
 chsh -s /usr/bin/zsh
@@ -938,7 +995,7 @@ starship preset nerd-font-symbols -o ~/.config/starship.toml
 
 ---
 
-## 12. Google Drive (rclone)
+## 13. Google Drive (rclone)
 
 ### Install and configure
 
@@ -976,7 +1033,7 @@ rclone mount Drive: ~/Documents/Drive --vfs-cache-mode writes &
 
 ---
 
-## 13. Bambu Studio
+## 14. Bambu Studio
 
 ### Install AppImage
 
@@ -1003,7 +1060,7 @@ Terminal=false
 ```
 ---
 
-## 14. SDDM Dark Theme
+## 15. SDDM Dark Theme
 
 ### Theme download
 
