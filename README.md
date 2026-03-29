@@ -705,32 +705,32 @@ cd ~/.config/waybar
 <summary>View style.css (Catppuccin Macchiato)</summary>
 
 ```css
-@define-color rosewater #f4dbd6;
-@define-color flamingo  #f0c6c6;
-@define-color pink      #f5bde6;
-@define-color mauve     #c6a0f6;
-@define-color red       #ed8796;
-@define-color maroon    #ee99a0;
-@define-color peach     #f5a97f;
-@define-color yellow    #eed49f;
-@define-color green     #a6da95;
-@define-color teal      #8bd5ca;
-@define-color sky       #91d7e3;
-@define-color sapphire  #7dc4e4;
-@define-color blue      #8aadf4;
-@define-color lavender  #b7bdf8;
-@define-color text      #cad3f5;
-@define-color subtext1  #b8c0e0;
-@define-color subtext0  #a5adcb;
-@define-color overlay2  #939ab7;
-@define-color overlay1  #8087a2;
-@define-color overlay0  #6e738d;
-@define-color surface2  #5b6078;
-@define-color surface1  #494d64;
-@define-color surface0  #363a4f;
-@define-color base      #24273a;
-@define-color mantle    #1e2030;
-@define-color crust     #181926;
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink #f5c2e7;
+@define-color mauve #cba4f7;
+@define-color red #f38ba8;
+@define-color maroon #eba0ac;
+@define-color peach #fab387;
+@define-color yellow #f9e2af;
+@define-color green #a6e3a1;
+@define-color teal #94e2d5;
+@define-color sky #89dceb;
+@define-color sapphire #74c7ec;
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color text #cdd6f4;
+@define-color subtext1 #bac2de;
+@define-color subtext0 #a6adc8;
+@define-color overlay2 #9399b2;
+@define-color overlay1 #7f849c;
+@define-color overlay0 #6c7086;
+@define-color surface2 #585b70;
+@define-color surface1 #45475a;
+@define-color surface0 #313244;
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
 
 * {
     font-family: "JetBrains Mono Nerd", monospace;
@@ -782,21 +782,56 @@ window#waybar {
     border-bottom: 1px solid transparent;
 }
 
-#workspaces button.urgent  { border-bottom: 1px solid @blue; }
-#workspaces button.active  { border-bottom: 1px solid @yellow; color: @yellow; }
+#workspaces button.urgent {
+    border-bottom: 1px solid @blue;
+}
 
-#tray           { padding: 0 6px; color: @sapphire; }
-#clock          { transition: all 0.3s ease; font-weight: bold; }
-#clock:hover    { color: @yellow; }
+#workspaces button.active {
+    border-bottom: 1px solid @yellow;
+    color: @yellow;
+}
 
-#pulseaudio       { font-weight: bold; transition: all 0.3s ease; }
-#pulseaudio:hover { color: @yellow; }
+#tray {
+    padding: 0 6px;
+    color: @sapphire;
+}
 
-#custom-bluetooth       { transition: all 0.3s ease; font-weight: bold; }
-#custom-bluetooth:hover { color: @yellow; }
+#clock {
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
 
-#custom-power       { padding: 0 6px; transition: all 0.3s ease; font-weight: bold; }
-#custom-power:hover { color: @yellow; }
+#clock:hover {
+    color: @yellow;
+}
+
+#pulseaudio {
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#pulseaudio:hover {
+    color: @yellow;
+}
+
+#custom-bluetooth {
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+#custom-bluetooth:hover {
+    color: @yellow;
+}
+
+#custom-power {
+    padding: 0 6px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+#custom-power:hover {
+    color: @yellow;
+}
 ```
 
 </details>
