@@ -661,12 +661,21 @@ code .config/swaync/style.css
 }
 
 .control-center {
-    background-color: alpha(@base, 0.75);
+    background-color: alpha(@base, 0.9);
     border-radius: 12px;
     color: @sapphire;
     padding: 2px 12px;
     margin: 10px;
     transition: 0.3s all
+}
+
+.notification {
+    background: alpha(@base, 0.9);
+    border-radius: 12px;
+    border: 1px solid alpha(@overlay0, 0.4);
+    padding: 10px;
+    margin: 3px 0px 20px 3px;
+    box-shadow: 2px 4px 20px rgba(30, 30, 46, 0.4);
 }
 ```
 
