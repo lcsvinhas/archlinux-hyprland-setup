@@ -220,7 +220,16 @@ monitor=DP-1,1920x1080,0x0,1
 monitor=HDMI-A-1,1600x900,1920x90,1
 
 workspace = 1, monitor:DP-1
-workspace = 2, monitor:HDMI-A-1
+workspace = 2, monitor:DP-1
+workspace = 3, monitor:DP-1
+workspace = 4, monitor:DP-1
+workspace = 5, monitor:DP-1
+
+workspace = 6, monitor:HDMI-A-1
+workspace = 7, monitor:HDMI-A-1
+workspace = 8, monitor:HDMI-A-1
+workspace = 9, monitor:HDMI-A-1
+workspace = 10, monitor:HDMI-A-1
 
 ###################
 ### MY PROGRAMS ###
