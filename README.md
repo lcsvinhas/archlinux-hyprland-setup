@@ -716,39 +716,42 @@ cd ~/.config/waybar
   "margin-right": 10,
   "margin-bottom": 1,
   "modules-left": [
-    "custom/icon",
-    "hyprland/window"
-  ],
-  "modules-center": [
     "hyprland/workspaces"
   ],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
-    "tray",
     "pulseaudio",
     "custom/bluetooth",
-    "clock",
     "custom/notifications",
     "custom/power"
   ],
-  "custom/icon": {
-    "format": "󰣇"
-  },
-  "hyprland/window": {
-    "separate-outputs": true,
-    "format": "{class}"
-  },
   "hyprland/workspaces": {
-    "disable-scroll": true,
+    "disable-scroll": false,
     "on-click": "activate",
-    "format": "{icon}"
-  },
-  "tray": {
-    "icon-size": 16,
-    "spacing": 5,
-    "show-passive-items": true
+    "on-scroll-up": "hyprctl dispatch workspace -1",
+    "on-scroll-down": "hyprctl dispatch workspace +1",
+    "format": "{name}",
+    "persistent-workspaces": {
+      "DP-1": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "HDMI-A-1": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
   },
   "clock": {
-    "format": "[{:%H:%M}]",
+    "format": "{:%H:%M}",
     "interval": 1,
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
@@ -762,14 +765,14 @@ cd ~/.config/waybar
     }
   },
   "custom/bluetooth": {
-    "exec": "bash -c 'rfkill list bluetooth | grep -q \"Soft blocked: no\" && echo \"󰂯 ON]\" || echo \"󰂲 OFF]\"'",
+    "exec": "bash -c 'rfkill list bluetooth | grep -q \"Soft blocked: no\" && echo \"󰂯 ON\" || echo \"󰂲 OFF\"'",
     "interval": 2,
     "on-click": "blueman-manager",
     "on-click-right": "rfkill toggle bluetooth"
   },
   "pulseaudio": {
-    "format": "[{icon} {volume}%",
-    "format-muted": "[󰖁 MUTE",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 MUTE",
     "format-icons": {
       "default": [
         "",
@@ -833,7 +836,7 @@ cd ~/.config/waybar
 * {
     font-family: "JetBrains Mono Nerd", monospace;
     border: none;
-    min-height: 0;
+    min-height: 20px;
 }
 
 window#waybar {
@@ -856,17 +859,6 @@ window#waybar {
     padding: 2px;
 }
 
-#custom-icon {
-    font-size: 15px;
-    padding-right: 4px;
-}
-
-#window {
-    font-weight: bold;
-    color: @sky;
-    transition: all 0.3s ease;
-}
-
 #workspaces {
     font-weight: bold;
     font-size: 12px;
@@ -875,7 +867,7 @@ window#waybar {
 
 #workspaces button {
     color: @sapphire;
-    border-radius: 0;
+    border-radius: 0px;
     transition: 0.2s ease-out;
     border-bottom: 1px solid transparent;
 }
@@ -887,11 +879,6 @@ window#waybar {
 #workspaces button.active {
     border-bottom: 1px solid @yellow;
     color: @yellow;
-}
-
-#tray {
-    padding: 0 4px;
-    color: @sapphire;
 }
 
 #clock {
