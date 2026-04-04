@@ -836,7 +836,7 @@ cd ~/.config/waybar
 * {
     font-family: "JetBrains Mono Nerd", monospace;
     border: none;
-    min-height: 20px;
+    min-height: 0;
 }
 
 window#waybar {
